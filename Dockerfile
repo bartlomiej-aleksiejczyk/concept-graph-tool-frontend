@@ -1,5 +1,9 @@
 FROM node:21
 
+ARG IMAGE_NAME
+
+ENV IMAGE_NAME=${IMAGE_NAME}
+
 WORKDIR /app
 
 COPY package*.json ./
