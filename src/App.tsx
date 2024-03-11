@@ -1,17 +1,18 @@
 import "./App.css";
-import { TopBar } from "./components/topbar/TopBar";
-import { PersistanceService } from "./shared/services/persistance/PersistanceService";
-import { ApiService } from "./shared/services/persistance/apiServices";
-import { LocalStorageService } from "./shared/services/persistance/localStorageService";
+import { PersistenceProvider } from "./shared/services/persistance/persistanceProvider";
+import { PrimeReactProvider } from "primereact/api";
+import "primereact/resources/themes/mira/theme.css";
+import { Menubar } from "primereact/menubar";
 
 function App() {
-  const useLocalStorage = true;
-  const dataService: PersistanceService = useLocalStorage ? new LocalStorageService() : new ApiService();
+  const menubarModel = [{ label: "items" }];
+
   return (
-    <>
-      <TopBar/>
-      <span className="text-orange-700">JKJKKK</span>
-    </>
+    <PrimeReactProvider>
+      <PersistenceProvider>
+        <Menubar model={menubarModel} />
+      </PersistenceProvider>
+    </PrimeReactProvider>
   );
 }
 
