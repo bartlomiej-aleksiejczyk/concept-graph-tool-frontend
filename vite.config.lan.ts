@@ -2,7 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: "/image_name/", // Set this as per your reverse proxy setup
+  base: "/" + process.env.IMAGE_NAME,
   plugins: [react()],
-  // other production-specific config
+  server: {
+    host: "0.0.0.0",
+  },
 });
