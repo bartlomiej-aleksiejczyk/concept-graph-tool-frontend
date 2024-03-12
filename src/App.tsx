@@ -1,4 +1,3 @@
-import "./App.css";
 import { PersistenceProvider } from "./shared/services/persistance/persistanceProvider";
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/mira/theme.css";
