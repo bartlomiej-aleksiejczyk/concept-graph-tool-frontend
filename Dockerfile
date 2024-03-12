@@ -6,7 +6,7 @@ ENV IMAGE_NAME=${IMAGE_NAME}
 
 WORKDIR /app
 
-COPY . ./
+COPY package*.json .
 
 RUN npm install
 
