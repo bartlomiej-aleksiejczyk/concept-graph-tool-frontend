@@ -12,10 +12,7 @@ function SidebarContainer({ children }: SidebarContainerProps) {
         <MainSidebar />
         <div className="flex flex-1 flex-col">
           <MainTopbar />
-          <div className="p-10">
-            {/* Your main content goes here */}
-            {children}
-          </div>
+          <div className="p-10">{children}</div>
         </div>
       </div>
     </>
