@@ -1,17 +1,11 @@
 import { PersistenceProvider } from "./shared/services/persistance/persistanceProvider";
-import { PrimeReactProvider } from "primereact/api";
-import "primereact/resources/themes/mira/theme.css";
-import { Menubar } from "primereact/menubar";
+import SidebarContainer from "./components/sidebarcontainer/SidebarContainer";
 
 function App() {
-  const menubarModel = [{ label: "items" }];
-
   return (
-    <PrimeReactProvider>
-      <PersistenceProvider>
-        <Menubar model={menubarModel} />
-      </PersistenceProvider>
-    </PrimeReactProvider>
+    <PersistenceProvider>
+      <SidebarContainer />
+    </PersistenceProvider>
   );
 }
 

@@ -1,10 +1,20 @@
 @layer tailwind-base, primereact, tailwind-utilities;
 
 @layer tailwind-base {
+  @import "primereact/resources/themes/lara-light-cyan/theme.css";
+
   @tailwind base;
+  html {
+    font-family: "Proxima Nova", system-ui, sans-serif;
+  }
 }
 
 @layer tailwind-utilities {
+  @import "primereact/resources/themes/lara-light-cyan/theme.css";
   @tailwind components;
   @tailwind utilities;
+}
+
+@layer primereact {
+  @import "primereact/resources/themes/lara-light-cyan/theme.css";
 }
