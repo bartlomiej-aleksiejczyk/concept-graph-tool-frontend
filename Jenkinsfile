@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "${JOB_NAME}".toLowerCase().replaceAll(/[^a-z0-9._-]/, '-')
         IMAGE_TAG = 'latest'
+        NETWORK_NAME = "${env.STANDARD_TRAEFIK_DOCKER_NETWORK}"
     }
 
     stages {
@@ -39,26 +40,7 @@ pipeline {
 
         stage('Ensure Traefik is Running') {
             steps {
-                script {
-                    sh '''
-                    RUNNING=$(docker ps --filter "name=^/traefik$" --format "{{.Names}}")
-                    if [ "$RUNNING" != "traefik" ]; then
-                    echo "Starting Traefik container..."
-                    docker rm traefik || true
-                    docker run -d --name traefik \
-                        --restart=unless-stopped \
-                        -p 80:80 \
-                        -p 8085:8080 \
-                        -v /var/run/docker.sock:/var/run/docker.sock \
-                        traefik:v2.5 \
-                        --api.insecure=true \
-                        --providers.docker \
-                        --entrypoints.web.address=:80
-                    else
-                    echo "Traefik container is already running."
-                    fi
-                    '''
-                }
+                ensureTraefik() // Call the shared library step to ensure Traefik is running
             }
         }
 
@@ -67,6 +49,7 @@ pipeline {
                 script {
                         sh '''
                         docker run -d --restart=unless-stopped --name $IMAGE_NAME \
+                        --network="$NETWORK_NAME" \
                         -e IMAGE_NAME="$IMAGE_NAME"\
                         -l traefik.enable=true \
                         -l "traefik.http.routers.$IMAGE_NAME.rule=Host(\\`$HOST_IP\\`) && PathPrefix(\\`/$IMAGE_NAME\\`)" \
